@@ -51,7 +51,7 @@ app.post("/enviar-mensagem", async (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Bem-vindo à página inicial do seu aplicativo!");
+  res.send("Bem-vindo à página inicial do seu aplicativo!!!");
 });
 
 app.listen(PORT, () => {
