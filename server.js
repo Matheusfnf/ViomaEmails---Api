@@ -1,8 +1,8 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const sgMail = require('@sendgrid/mail');
-const cors = require('cors');
-require('dotenv').config();
+const express = require("express");
+require("dotenv").config();
+const bodyParser = require("body-parser");
+const sgMail = require("@sendgrid/mail");
+const cors = require("cors");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,37 +17,48 @@ app.use(bodyParser.urlencoded({ extended: true }));
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Rota para lidar com o envio de mensagens
-app.post('/enviar-mensagem', (req, res) => {
+app.post("/enviar-mensagem", (req, res) => {
   const { nome, email, numero, mensagem } = req.body;
 
   // Certifique-se de que os dados são recebidos corretamente
   if (!nome || !email || !numero || !mensagem) {
-    return res.status(400).json({ success: false, message: 'Por favor, forneça todos os campos necessários.' });
+    return res
+      .status(400)
+      .json({
+        success: false,
+        message: "Por favor, forneça todos os campos necessários.",
+      });
   }
 
   // Configuração do e-mail
   const msg = {
-    to: 'matheusfortunatoaw@gmail.com', // Coloque o seu e-mail aqui
-    from: 'matheusfortunatoaw@hotmail.com',
-    subject: 'Nova mensagem de contato',
+    to: "matheusfortunatoaw@gmail.com", // Coloque o seu e-mail aqui
+    from: "matheusfortunatoaw@hotmail.com",
+    subject: "Nova mensagem de contato",
     text: `Nome: ${nome}\nEmail: ${email}\nNúmero: ${numero}\nMensagem: ${mensagem}`,
   };
 
   // Envio do e-mail
-  sgMail.send(msg)
+  sgMail
+    .send(msg)
     .then(() => {
-      console.log('E-mail enviado com sucesso');
-      res.json({ success: true, message: 'Mensagem enviada com sucesso!' });
+      console.log("E-mail enviado com sucesso");
+      res.json({ success: true, message: "Mensagem enviada com sucesso!" });
     })
     .catch((error) => {
-      console.error('Erro ao enviar e-mail:', error.response ? error.response.body : error.message);
-      res.status(500).json({ success: false, message: 'Erro ao enviar a mensagem' });
+      console.error(
+        "Erro ao enviar e-mail:",
+        error.response ? error.response.body : error.message
+      );
+      res
+        .status(500)
+        .json({ success: false, message: "Erro ao enviar a mensagem" });
     });
 });
 
 // Rota para a página inicial
-app.get('/', (req, res) => {
-  res.send('Bem-vindo à página inicial do seu aplicativo!');
+app.get("/", (req, res) => {
+  res.send("Bem-vindo à página inicial do seu aplicativo!");
 });
 
 // Inicie o servidor
