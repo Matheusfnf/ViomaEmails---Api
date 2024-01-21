@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const sgMail = require('@sendgrid/mail');
 const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,7 +14,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Configure a API Key do SendGrid
-sgMail.setApiKey('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');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Rota para lidar com o envio de mensagens
 app.post('/enviar-mensagem', (req, res) => {
@@ -42,6 +43,11 @@ app.post('/enviar-mensagem', (req, res) => {
       console.error('Erro ao enviar e-mail:', error.response ? error.response.body : error.message);
       res.status(500).json({ success: false, message: 'Erro ao enviar a mensagem' });
     });
+});
+
+// Rota para a página inicial
+app.get('/', (req, res) => {
+  res.send('Bem-vindo à página inicial do seu aplicativo!');
 });
 
 // Inicie o servidor
