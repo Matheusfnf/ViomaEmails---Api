@@ -32,7 +32,7 @@ app.post("/enviar-mensagem", (req, res) => {
 
   // Configuração do e-mail
   const msg = {
-    to: "matheusfortunatoaw@gmail.com", // Coloque o seu e-mail aqui
+    to: "matheusfortunatoaw@outlook.com", // Coloque o seu e-mail aqui
     from: "matheusfortunatoaw@hotmail.com",
     subject: "Nova mensagem de contato",
     text: `Nome: ${nome}\nEmail: ${email}\nNúmero: ${numero}\nMensagem: ${mensagem}`,
