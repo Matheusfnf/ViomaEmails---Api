@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Configure a API Key do SendGrid
-sgMail.setApiKey('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');
+sgMail.setApiKey('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');
 
 // Rota para lidar com o envio de mensagens
 app.post('/enviar-mensagem', (req, res) => {
